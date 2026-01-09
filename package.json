@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:backend": "NEXT_PUBLIC_API_URL=http://localhost:8090 next dev",
+    "dev:backend": "cross-env NEXT_PUBLIC_API_URL=http://localhost:8090 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -29,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^8.52.0",
     "@typescript-eslint/parser": "^8.52.0",
     "autoprefixer": "^10.4.19",
+    "cross-env": "^10.1.0",
     "eslint-config-next": "^16.1.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
