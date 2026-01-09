@@ -24,7 +24,9 @@ export default function ForestBoard() {
   const fetchWorld = useCallback(async () => {
     try {
       setError(null);
-      const res = await fetch('/api/viewmodel');
+      // Use environment variable for API URL, fallback to local mock API
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || '';
+      const res = await fetch(`${apiBase}/api/viewmodel`);
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       }
@@ -97,11 +99,17 @@ export default function ForestBoard() {
           <div className="font-bold text-forest-accent mb-2">Legend</div>
           <div className="flex flex-col gap-1 text-gray-300">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-2 bg-green-700" style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}></div>
+              <div
+                className="w-4 h-2 bg-green-700"
+                style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
+              ></div>
               <span>Land</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-2 bg-purple-600" style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}></div>
+              <div
+                className="w-4 h-2 bg-purple-600"
+                style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
+              ></div>
               <span>Manaland (GPU)</span>
             </div>
             <div className="flex items-center gap-2">
