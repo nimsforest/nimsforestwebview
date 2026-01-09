@@ -1,7 +1,11 @@
 import * as Phaser from 'phaser';
 import { World, Land, TILE_WIDTH, TILE_HEIGHT, gridToIso, Process } from './types';
 
-export type SelectCallback = (type: 'land' | 'tree' | 'treehouse' | 'nim', id: string, landId?: string) => void;
+export type SelectCallback = (
+  type: 'land' | 'tree' | 'treehouse' | 'nim',
+  id: string,
+  landId?: string
+) => void;
 
 export class ForestScene extends Phaser.Scene {
   private world: World | null = null;
@@ -115,11 +119,19 @@ export class ForestScene extends Phaser.Scene {
     });
 
     // Mouse wheel zoom
-    this.input.on('wheel', (_pointer: Phaser.Input.Pointer, _gameObjects: Phaser.GameObjects.GameObject[], _deltaX: number, deltaY: number) => {
-      const cam = this.cameras.main;
-      const newZoom = Phaser.Math.Clamp(cam.zoom - deltaY * 0.001, 0.5, 2);
-      cam.setZoom(newZoom);
-    });
+    this.input.on(
+      'wheel',
+      (
+        _pointer: Phaser.Input.Pointer,
+        _gameObjects: Phaser.GameObjects.GameObject[],
+        _deltaX: number,
+        deltaY: number
+      ) => {
+        const cam = this.cameras.main;
+        const newZoom = Phaser.Math.Clamp(cam.zoom - deltaY * 0.001, 0.5, 2);
+        cam.setZoom(newZoom);
+      }
+    );
 
     if (this.world) {
       this.renderWorld();
@@ -210,9 +222,9 @@ export class ForestScene extends Phaser.Scene {
 
     // Combine all processes
     const allProcesses: Array<Process & { processType: 'tree' | 'treehouse' | 'nim' }> = [
-      ...land.trees.map(p => ({ ...p, processType: 'tree' as const })),
-      ...land.treehouses.map(p => ({ ...p, processType: 'treehouse' as const })),
-      ...land.nims.map(p => ({ ...p, processType: 'nim' as const })),
+      ...land.trees.map((p) => ({ ...p, processType: 'tree' as const })),
+      ...land.treehouses.map((p) => ({ ...p, processType: 'treehouse' as const })),
+      ...land.nims.map((p) => ({ ...p, processType: 'nim' as const })),
     ];
 
     for (const proc of allProcesses) {
@@ -247,8 +259,10 @@ export class ForestScene extends Phaser.Scene {
     if (!this.world || this.world.lands.length === 0) return;
 
     // Find the center of all lands
-    let minX = Infinity, maxX = -Infinity;
-    let minY = Infinity, maxY = -Infinity;
+    let minX = Infinity,
+      maxX = -Infinity;
+    let minY = Infinity,
+      maxY = -Infinity;
 
     for (const land of this.world.lands) {
       const { x, y } = gridToIso(land.grid_x, land.grid_y);

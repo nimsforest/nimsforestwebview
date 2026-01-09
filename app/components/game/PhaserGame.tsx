@@ -66,11 +66,5 @@ export default function PhaserGame({ world, onSelect }: Props) {
     }
   }, [onSelect]);
 
-  return (
-    <div
-      id="phaser-container"
-      className="w-full h-full"
-      style={{ minHeight: '400px' }}
-    />
-  );
+  return <div id="phaser-container" className="w-full h-full" style={{ minHeight: '400px' }} />;
 }

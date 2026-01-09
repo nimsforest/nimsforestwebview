@@ -16,8 +16,8 @@ export default function Sidebar({ world, selected, onClose }: Props) {
     selected?.type === 'land'
       ? world.lands.find((l) => l.id === selected.id)
       : selected?.landId
-      ? world.lands.find((l) => l.id === selected.landId)
-      : null;
+        ? world.lands.find((l) => l.id === selected.landId)
+        : null;
 
   // Find the selected process
   const selectedProcess =
@@ -60,9 +60,7 @@ export default function Sidebar({ world, selected, onClose }: Props) {
             </button>
           </div>
 
-          {selected.type === 'land' && selectedLand && (
-            <LandDetails land={selectedLand} />
-          )}
+          {selected.type === 'land' && selectedLand && <LandDetails land={selectedLand} />}
 
           {selected.type !== 'land' && selectedProcess && (
             <ProcessDetails process={selectedProcess} type={selected.type} />
@@ -95,8 +93,7 @@ function StatRow({ label, value }: { label: string; value: string }) {
 }
 
 function OccupancyBar({ occupancy }: { occupancy: number }) {
-  const color =
-    occupancy < 50 ? 'bg-green-500' : occupancy < 80 ? 'bg-yellow-500' : 'bg-red-500';
+  const color = occupancy < 50 ? 'bg-green-500' : occupancy < 80 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
     <div className="mt-2">
@@ -127,7 +124,10 @@ function LandDetails({ land }: { land: Land }) {
         label="RAM"
         value={`${formatBytes(land.ram_allocated)} / ${formatBytes(land.ram_total)}`}
       />
-      <StatRow label="CPU" value={`${land.cpu_cores} cores @ ${land.cpu_freq_ghz.toFixed(1)} GHz`} />
+      <StatRow
+        label="CPU"
+        value={`${land.cpu_cores} cores @ ${land.cpu_freq_ghz.toFixed(1)} GHz`}
+      />
       {land.gpu_vram && land.gpu_vram > 0 && (
         <>
           <StatRow label="GPU VRAM" value={formatBytes(land.gpu_vram)} />
@@ -184,9 +184,7 @@ function ProcessDetails({
           </div>
         </div>
       )}
-      {process.script_path && (
-        <StatRow label="Script" value={process.script_path} />
-      )}
+      {process.script_path && <StatRow label="Script" value={process.script_path} />}
       {process.ai_enabled && (
         <>
           <StatRow label="AI Enabled" value="Yes" />
@@ -216,11 +214,8 @@ function LandCard({ land }: { land: Land }) {
   );
 }
 
-function findProcess(
-  land: Land,
-  type: 'tree' | 'treehouse' | 'nim',
-  id: string
-): Process | null {
-  const processes = type === 'tree' ? land.trees : type === 'treehouse' ? land.treehouses : land.nims;
+function findProcess(land: Land, type: 'tree' | 'treehouse' | 'nim', id: string): Process | null {
+  const processes =
+    type === 'tree' ? land.trees : type === 'treehouse' ? land.treehouses : land.nims;
   return processes.find((p) => p.id === id) || null;
 }
