@@ -7,6 +7,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Disable SWC and use Babel instead (for platforms without SWC binaries)
+  swcMinify: false,
   // Rewrites for proxying to external backend (only in dev mode with NEXT_PUBLIC_API_URL set)
   async rewrites() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
