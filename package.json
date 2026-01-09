@@ -15,6 +15,7 @@
     "check": "npm run type-check && npm run lint && npm run format:check"
   },
   "dependencies": {
+    "@babel/runtime": "^7.28.4",
     "next": "^14.2.0",
     "phaser": "^3.80.1",
     "react": "^18.2.0",
